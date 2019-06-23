@@ -1,63 +1,69 @@
-п»ї// ConsoleApplication1.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
+// ConsoleApplication2.cpp: определяет точку входа для консольного приложения.
 //
 
+#include "stdafx.h"
 #include <clocale>
 #include <iostream>
 #include <fstream>
 #include <Windows.h>
 #include "struct.h"
-#include "source.cpp"
 
-namespace types {
-	// РЎРёРіРЅР°С‚СѓСЂС‹ С‚СЂРµР±СѓРµРјС‹С… РІРЅРµС€РЅРёС… С„СѓРЅРєС†РёР№
-
-	void Init(container& b);
-	void Clear(container& b);
-	game* InGame(game& g, ifstream& ifst);
-	void OutGame(game* g, ofstream& ofst);
-	cartoon* InCartoon(cartoon& c, ifstream& ifst);
-	void OutCartoon(cartoon* c, ofstream& ofst);
-	void Out(film* f, ofstream& ofst);
-	film* In(ifstream& ifst);
-	void In(container& b, ifstream& ifst);
-	void Out(container& b, ofstream& ofst);
-
-}
 
 using namespace std;
 using namespace types;
 
-int main()
+namespace types {
+	// Сигнатуры требуемых внешних функций
+
+	void Init(container &b);
+	void Clear(container &b);
+	game *InGame(game &g, ifstream &ifst);
+	void OutGame(game *g, ofstream &ofst);
+	cartoon *InCartoon(cartoon &c, ifstream &ifst);
+	void OutCartoon(cartoon *c, ofstream &ofst);
+	void Out(film *f, ofstream &ofst);
+	film *In(ifstream &ifst);
+	int addlist(container &b, ifstream &ifst);
+	void InContainer(container &b, ifstream &ifst);
+	void Out(container &b, ofstream &ofst);
+	void OutFilter(container &b, ofstream &ofst);
+}
+
+
+void main(int argc, char* argv[])
 {
-	SetConsoleCP(1251);// СѓСЃС‚Р°РЅРѕРІРєР° РєРѕРґРѕРІРѕР№ СЃС‚СЂР°РЅРёС†С‹ win-cp 1251 РІ РїРѕС‚РѕРє РІРІРѕРґР°
-	SetConsoleOutputCP(1251); // СѓСЃС‚Р°РЅРѕРІРєР° РєРѕРґРѕРІРѕР№ СЃС‚СЂР°РЅРёС†С‹ win-cp 1251 РІ РїРѕС‚РѕРє РІС‹РІРѕРґР° 
-	setlocale(LC_CTYPE, "rus"); // РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё РЅР°СЃС‚СЂРѕР№РєРё Р»РѕРєР°Р»Рё
+	SetConsoleCP(1251);// установка кодовой страницы win-cp 1251 в поток ввода
+	SetConsoleOutputCP(1251); // установка кодовой страницы win-cp 1251 в поток вывода 
+	setlocale(LC_CTYPE, "rus"); // вызов функции настройки локали
 
 	ifstream ifst("in.txt");
+
 	ofstream ofst("out.txt", ios::trunc);
 
+	//ifstream ifst("test_game.txt");
+	//ofstream ofst("test_game_out.txt", ios::trunc);
 
 	/*if (argc != 3) {
-		cout << "incorrect command line! "
-			"Waited: command infile outfile" << endl;
-		exit(1);
+	cout << "incorrect command line! "
+	"Waited: command infile outfile" << endl;
+	exit(1);
 	}
 	ifstream ifst(argv[1]);
 	ofstream ofst(argv[2]);*/
-	cout << "РЎС‚Р°СЂС‚!" << endl;
+	cout << "Старт!" << endl;
 	container b;
 	Init(b);
-	In(b, ifst);
-	ofst << "РљРѕРЅС‚РµР№РЅРµСЂ Р·Р°РїРѕР»РЅРµРЅ. " << endl;
+	InContainer(b, ifst);
+	ofst << "Контейнер заполнен. " << endl;
 	Out(b, ofst);
+	OutFilter(b, ofst);
 	Clear(b);
-	ofst << "РљРѕРЅС‚РµР№РЅРµСЂ РїСѓСЃС‚. " << endl;
+	ofst << "Контейнер пуст. " << endl;
 	Out(b, ofst);
-	cout << "РЎС‚РѕРї." << endl;
+	cout << "Стоп." << endl;
 
 
 	system("pause");
-	return 0;
 
 }
 
