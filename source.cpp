@@ -140,6 +140,9 @@ namespace types {
 		ofst << "Это доументальный фильм" << ", Название фильма: " << d->name << ", Год выпуска: " << d->date << endl;
 	}
 
+	
+	//--------------------------------------------------
+
 	//Вывод по ключу
 	void Out(film *f, ofstream &ofst) {
 		switch (f->key)
@@ -314,12 +317,27 @@ namespace types {
 		}
 	}
 
-	// Ввод содержимого контейнера из указанного потока
+}
+
 	void InContainer(container &b, ifstream &ifst) {
 		while (!ifst.eof()) {
 			if (addlist(b, ifst) != 0)
 				b.count++;
 		}
+	}
+
+	// Очистка контейнера от элементов
+	void Clear(container &b) {
+		List* current = b.Top;
+		int i = 1;
+		while (i < b.count)
+		{
+			current = current->Next;
+			delete current->Priv;
+			i++;
+		}
+		delete current;
+		b.count = 0;
 	}
 
 	// Очистка контейнера от элементов
@@ -365,7 +383,6 @@ namespace types {
 		}
 	}
 
-
 	void OutFilter(container &b, ofstream &ofst)
 	{
 		List* current = b.Top;
@@ -379,3 +396,4 @@ namespace types {
 		}
 	}
 }
+

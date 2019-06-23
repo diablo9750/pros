@@ -25,6 +25,7 @@ namespace types {
 		type key; //ключ
 		char name[100];//Название фильма
 		int date;//Год выпуска
+		int type;
 	};
 
 	//Обобщённая структура

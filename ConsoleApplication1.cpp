@@ -25,6 +25,7 @@ namespace types {
 	void InContainer(container &b, ifstream &ifst);
 	void Out(container &b, ofstream &ofst);
 	bool Compare(film *first, film *second);
+	void OutFilter(container &b, ofstream &ofst);
 }
 
 
@@ -35,7 +36,6 @@ void main(int argc, char* argv[])
 	setlocale(LC_CTYPE, "rus"); // вызов функции настройки локали
 
 	ifstream ifst("in.txt");
-
 	ofstream ofst("out.txt", ios::trunc);
 	/*if (argc != 3) {
 	cout << "incorrect command line! "
@@ -50,6 +50,7 @@ void main(int argc, char* argv[])
 	InContainer(b, ifst);
 	ofst << "Контейнер заполнен. " << endl;
 	Out(b, ofst);
+	OutFilter(b, ofst);
 	Clear(b);
 	ofst << "Контейнер пуст. " << endl;
 	Out(b, ofst);
