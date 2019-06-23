@@ -1,8 +1,10 @@
 #ifndef _struct
 #define _struct
+
+//Содержит описание фильмов
 namespace types {
 
-	enum type { GAME = 1, CARTOON = 2 };
+	enum type { GAME = 1, CARTOON = 2, DOC = 3 };
 	//Игровой
 	struct game {
 		type key; //ключ
@@ -17,17 +19,35 @@ namespace types {
 		int type;//Вид мультфильма
 	};
 
+	//Документальный
+	struct doc {
+		type key; //ключ
+		char name[100];//Название фильма
+		int date;//Год выпуска
+	};
+
 	//Обобщённая структура
 	struct film {
 		type key; //ключ
 	};
 
+	struct List {
+		List() {
+			this->Next = nullptr;
+			this->Priv = nullptr;
+			this->data = nullptr;
+		};
+		List* Next;
+		List* Priv;
+		film* data;
+	};
+
 	// Простейший контейнер на основе одномерного массива
 	struct container
 	{
-		enum { max_len = 100 }; // максимальная длина
-		int len; // текущая длина
-		film* cont[max_len];
+		List* Top;
+		int count;
+		void addlist();
 	};
 }
 #endif
