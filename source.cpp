@@ -6,7 +6,6 @@
 using namespace std;
 
 namespace types {
-	//--------------------------------------------------
 
 	//--------------------------------------------------
 	//Дополнительные функции
@@ -97,13 +96,13 @@ namespace types {
 
 	// Ввод параметров игрового фильма из файла
 	game *InGame(game &g, ifstream &ifst) {
-		ifst >> g.name >> g.director;
+		ifst >> g.country >> g.name >> g.director;
 		return &g;
 	}
 
 	// Вывод параметров игрового фильма в поток
 	void OutGame(game *g, ofstream &ofst) {
-		ofst << "Это игровой фильм"  << ", Название фильма: " << g->name
+		ofst << "Это игровой фильм. Страна, где произведён фильм: " << g->country << ", Название фильма: " << g->name
 			<< ", Режиссёр: " << g->director << endl;
 	}
 
@@ -112,14 +111,14 @@ namespace types {
 	// Ввод параметров мультфильма из потока
 	cartoon *InCartoon(cartoon &c, ifstream &ifst)
 	{
-		ifst  >> c.name >> c.type;
+		ifst >> c.country >> c.name >> c.type;
 		return &c;
 	}
 
 	// Вывод параметров мультфильма в поток
 	void OutCartoon(cartoon *c, ofstream &ofst)
 	{
-		ofst << "Это мультильм"  << ", Название фильма: " << c->name << ", вид мультфильма: ";
+		ofst << "Это мультильм. Страна, где произведён фильм: " << c->country << ", Название фильма: " << c->name << ", вид мультфильма: ";
 
 		if (c->type == 1) {
 			ofst << "рисованный" << endl;
@@ -141,7 +140,6 @@ namespace types {
 		ofst << "Это доументальный фильм" << ", Название фильма: " << d->name << ", Год выпуска: " << d->date << endl;
 	}
 
-	//--------------------------------------------------
 	//Вывод по ключу
 	void Out(film *f, ofstream &ofst) {
 		switch (f->key)
@@ -338,16 +336,45 @@ namespace types {
 		b.count = 0;
 	}
 
+	// Очистка контейнера от элементов
+	void Clear(container &b) {
+		List* current = b.Top;
+		int i = 1;
+		while (i < b.count)
+		{
+			current = current->Next;
+			delete current->Priv;
+			i++;
+		}
+		delete current;
+		b.count = 0;
+	}
+
 	// Вывод содержимого контейнера в указанный поток
 	void Out(container &b, ofstream &ofst)
 	{
 		Sort(b);
+		List* current = b.Top;
 		ofst << "Контейнер содержит количество элементов равное: " << b.count << endl;
 		for (int j = 1; j <= b.count; j++)
 		{
 			ofst << j << ": ";
 			Out(current->data, ofst);
 			ofst << "Количество гласных в названии: " << Vowel(current->data) << endl;
+			current = current->Next;
+		}
+	}
+
+
+	void OutFilter(container &b, ofstream &ofst)
+	{
+		List* current = b.Top;
+		ofst << "Только игровые фильмы" << endl;
+		for (int i = 1; i <= b.count; i++) {
+			if (current->data->key == GAME)
+			{
+				Out(current->data, ofst);
+			}
 			current = current->Next;
 		}
 	}

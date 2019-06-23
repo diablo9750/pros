@@ -8,10 +8,8 @@
 #include <Windows.h>
 #include "struct.h"
 
-
 using namespace std;
 using namespace types;
-
 namespace types {
 	// Сигнатуры требуемых внешних функций
 
@@ -37,6 +35,7 @@ void main(int argc, char* argv[])
 	setlocale(LC_CTYPE, "rus"); // вызов функции настройки локали
 
 	ifstream ifst("in.txt");
+
 	ofstream ofst("out.txt", ios::trunc);
 	/*if (argc != 3) {
 	cout << "incorrect command line! "
