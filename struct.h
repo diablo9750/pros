@@ -16,7 +16,7 @@ namespace types {
 	struct cartoon {
 		type key; //ключ
 		char name[100];//Название фильма
-		int type;//Вид мультфильма
+		int type;
 	};
 
 	//Документальный
