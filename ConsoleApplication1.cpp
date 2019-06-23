@@ -26,6 +26,7 @@ namespace types {
 	int addlist(container &b, ifstream &ifst);
 	void InContainer(container &b, ifstream &ifst);
 	void Out(container &b, ofstream &ofst);
+	bool Compare(film *first, film *second);
 }
 
 
@@ -37,7 +38,6 @@ void main(int argc, char* argv[])
 
 	ifstream ifst("in.txt");
 	ofstream ofst("out.txt", ios::trunc);
-
 	/*if (argc != 3) {
 	cout << "incorrect command line! "
 	"Waited: command infile outfile" << endl;

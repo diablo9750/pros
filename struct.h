@@ -19,6 +19,7 @@ namespace types {
 		int type;
 	};
 
+
 	//Обобщённая структура
 	struct film {
 		type key; //ключ
