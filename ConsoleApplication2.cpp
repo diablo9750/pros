@@ -7,9 +7,8 @@
 #include <fstream>
 #include <Windows.h>
 #include "struct.h"
+#include "Source.cpp"
 
-using namespace std;
-using namespace types;
 namespace types {
 	// Сигнатуры требуемых внешних функций
 
@@ -19,15 +18,16 @@ namespace types {
 	void OutGame(game *g, ofstream &ofst);
 	cartoon *InCartoon(cartoon &c, ifstream &ifst);
 	void OutCartoon(cartoon *c, ofstream &ofst);
+	doc *InDoc(doc &d, ifstream &ifst);
+	void OutDoc(doc *d, ofstream &ofst);
 	void Out(film *f, ofstream &ofst);
 	film *In(ifstream &ifst);
-	int addlist(container &b, ifstream &ifst);
-	void InContainer(container &b, ifstream &ifst);
+	void In(container &b, ifstream &ifst);
 	void Out(container &b, ofstream &ofst);
-	bool Compare(film *first, film *second);
-	void OutFilter(container &b, ofstream &ofst);
 }
 
+using namespace std;
+using namespace types;
 
 void main(int argc, char* argv[])
 {
@@ -37,6 +37,8 @@ void main(int argc, char* argv[])
 
 	ifstream ifst("in.txt");
 	ofstream ofst("out.txt", ios::trunc);
+
+
 	/*if (argc != 3) {
 	cout << "incorrect command line! "
 	"Waited: command infile outfile" << endl;
@@ -47,10 +49,9 @@ void main(int argc, char* argv[])
 	cout << "Старт!" << endl;
 	container b;
 	Init(b);
-	InContainer(b, ifst);
+	In(b, ifst);
 	ofst << "Контейнер заполнен. " << endl;
 	Out(b, ofst);
-	OutFilter(b, ofst);
 	Clear(b);
 	ofst << "Контейнер пуст. " << endl;
 	Out(b, ofst);

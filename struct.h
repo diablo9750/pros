@@ -3,11 +3,11 @@
 
 //Содержит описание фильмов
 namespace types {
-
-	enum type { GAME = 1, CARTOON = 2};
+	enum type { GAME = 1, CARTOON = 2, DOC = 3 };
 	//Игровой
 	struct game {
 		type key; //ключ
+		char country[100];//Страна
 		char name[100];//Название фильма
 		char director[100];//Имя режиссёра
 	};
@@ -15,7 +15,16 @@ namespace types {
 	//Мультфильм
 	struct cartoon {
 		type key; //ключ
+		char country[100];//Страна
 		char name[100];//Название фильма
+		int type;
+	};
+
+	//Документальный
+	struct doc {
+		type key; //ключ
+		char name[100];//Название фильма
+		int date;//Год выпуска
 		int type;
 	};
 
